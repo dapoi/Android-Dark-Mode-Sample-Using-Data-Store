@@ -9,8 +9,8 @@ class ViewModelFactory(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(settingDataStore) as T
+        if (modelClass.isAssignableFrom(DarkModeViewModel::class.java)) {
+            return DarkModeViewModel(settingDataStore) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class: ${modelClass.name}")
     }
