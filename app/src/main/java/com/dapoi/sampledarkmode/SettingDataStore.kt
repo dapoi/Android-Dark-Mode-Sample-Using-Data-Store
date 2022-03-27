@@ -12,22 +12,22 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("dark_mode")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("settings")
 
 class SettingDataStore(context: Context) {
 
     private val appContext = context.applicationContext
 
-    suspend fun setDarkMode(uiMode: UIMode) {
+    suspend fun setDarkMode(uiTheme: UITheme) {
         appContext.dataStore.edit { preferences ->
-            preferences[IS_DARK_MODE] = when (uiMode) {
-                UIMode.LIGHT -> false
-                UIMode.DARK -> true
+            preferences[IS_DARK_MODE] = when (uiTheme) {
+                UITheme.LIGHT -> false
+                UITheme.DARK -> true
             }
         }
     }
 
-    val uiModeFlow: Flow<UIMode> = appContext.dataStore.data
+    val getDarkMode: Flow<UITheme> = appContext.dataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -38,8 +38,8 @@ class SettingDataStore(context: Context) {
         }
         .map {
             when (it[IS_DARK_MODE] ?: false) {
-                true -> UIMode.DARK
-                false -> UIMode.LIGHT
+                true -> UITheme.DARK
+                false -> UITheme.LIGHT
             }
         }
 

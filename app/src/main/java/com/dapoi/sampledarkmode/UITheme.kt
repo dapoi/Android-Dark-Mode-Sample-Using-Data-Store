@@ -1,5 +1,5 @@
 package com.dapoi.sampledarkmode
 
-enum class UIMode {
+enum class UITheme {
     LIGHT, DARK
 }

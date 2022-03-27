@@ -26,16 +26,16 @@ class MainActivity : AppCompatActivity() {
             this,
             ViewModelFactory(settingDataStore)
         )[MainViewModel::class.java]
-        viewModel.setDataStore.observe(this) {
-            setCheckMode(it)
+        viewModel.getDarkMode.observe(this) {
+            checkThemeMode(it)
         }
 
         with(binding) {
             applyModeSwitch.setOnCheckedChangeListener { _, isChecked ->
                 lifecycleScope.launch {
                     when (isChecked) {
-                        true -> settingDataStore.setDarkMode(UIMode.DARK)
-                        false -> settingDataStore.setDarkMode(UIMode.LIGHT)
+                        true -> settingDataStore.setDarkMode(UITheme.DARK)
+                        false -> settingDataStore.setDarkMode(UITheme.LIGHT)
                     }
                 }
             }
@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCheckMode(uiMode: UIMode?) {
-        if (uiMode == UIMode.LIGHT) {
+    private fun checkThemeMode(uiTheme: UITheme?) {
+        if (uiTheme == UITheme.LIGHT) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             binding.applyModeSwitch.isChecked = false
-        } else if (uiMode == UIMode.DARK) {
+        } else if (uiTheme == UITheme.DARK) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             binding.applyModeSwitch.isChecked = true
         }
