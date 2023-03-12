@@ -4,6 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 
-class MainViewModel(settingDataStore: SettingDataStore) : ViewModel() {
+class DarkModeViewModel(settingDataStore: SettingDataStore) : ViewModel() {
     val getDarkMode: LiveData<UITheme> = settingDataStore.getDarkMode.asLiveData()
 }
